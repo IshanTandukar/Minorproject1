@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Navigate } from "react-router-dom";
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirects, setRedirects] = useState(false);
@@ -19,19 +19,28 @@ const Login = ({ setUser }) => {
         email,
         password,
       }),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.jwt) {
+          localStorage.setItem("token", data.jwt);
+          window.location = "/";
+        }
+      });
 
-    console.log(response);
-    const token = await response.json();
-    if (token) {
-      setRedirects(true);
-      setUser(token);
-    }
+    // console.log(response);
+    // const token = await response.json();
+    // localStorage.setItem("token", token.jwt);
+    // console.log(token);
+    // if (token) {
+    //   setRedirects(true);
+    //   setUser(token);
+    // }
   };
 
-  if (redirects) {
-    return <Navigate replace to="/" />;
-  }
+  // if (redirects) {
+  //   return <Navigate replace to="/" />;
+  // }
 
   return (
     <>
