@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'colordb',
         'USER': 'root',
-        'PASSWORD': '6650509869a',
+        'PASSWORD': 'anup',
         'HOST':'127.0.0.1',
         'PORT':'3306',
     }
@@ -143,8 +143,8 @@ CORS_ALLOW_CREDENTIALS = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR/"media"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # STATICFILES_DIRS = [
 #     BASE_DIR.joinpath('image-main','dist', 'assets')

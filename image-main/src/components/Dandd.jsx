@@ -82,10 +82,9 @@
 
 // export default Dandd;
 
-
-
 // ***change by ishan***
 import { useState, useRef } from "react";
+import { redirect } from "react-router-dom";
 
 const Dandd = () => {
   const [image, setImage] = useState(null);
@@ -113,6 +112,7 @@ const Dandd = () => {
 
       const data = await response.json();
       if (data.colorized_image_url) {
+        console.log(data.colorized_image_url);
         setColorizedImageUrl(data.colorized_image_url);
       } else {
         console.error("Server response is missing colorized_image_url:", data);
@@ -121,11 +121,41 @@ const Dandd = () => {
       console.error("Error uploading image:", error);
     }
   }
+  const handleDownload = () => {
+    const url = { colorizedImageUrl };
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "image.jpg");
+    document.body.appendChild(link);
+    link.click();
+  };
+  const colorize = () => {
+    setColorizedImageUrl((prev) => {
+      prev = null;
+    });
+    setImage((prev) => {
+      prev = null;
+    });
+    redirect("/");
+  };
 
   if (colorizedImageUrl) {
     return (
-      <div className="flex flex-col justify-center items-center">
-        <img src={colorizedImageUrl} alt="Colorized Image" onError={() => console.error("Error loading image")} />
+      <div className="flex flex-col justify-center items-center mt-10">
+        <img
+          src={colorizedImageUrl}
+          alt="Colorized Image"
+          className="h-52 w-52"
+          onError={() => console.error("Error loading image")}
+        />
+        <div className="mt-8">
+          <button onClick={handleDownload} className="mr-2">
+            Download
+          </button>
+          <button onClick={colorize} className="ml-2">
+            Colorize
+          </button>
+        </div>
       </div>
     );
   }
@@ -183,8 +213,3 @@ const Dandd = () => {
 };
 
 export default Dandd;
-
-
-//change to be made by anup:
-// "http://127.0.0.1:8000/api/products/" yo api image upload garna ko lagi ho database ma
-// "http://127.0.0.1:8000/api/colorized-image/ yo api image retrieve garna ko lagi ho . Yo mathi ko code ma tyo milayeko chaina tyo milauna paryo hai.

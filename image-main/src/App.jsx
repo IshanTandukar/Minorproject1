@@ -8,15 +8,13 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Navb";
 
 function App() {
-  const [user, setUser] = useState("");
-
   return (
     <div className=" container ">
       <BrowserRouter>
-        <Nav user={user} setUser={setUser} />
+        <Nav />
         <Routes>
-          <Route index element={<Home user={user} />} />
-          <Route path="login" element={<Login setUser={setUser} />} />
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

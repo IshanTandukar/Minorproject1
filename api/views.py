@@ -16,7 +16,7 @@ from io import BytesIO
 from PIL import Image
 import numpy as np
 from django.conf import settings
-img_size = 128
+img_size = 120
 
 
 # generator = tf.keras.models.load_model('milanmodel.keras', custom_objects={'generator_loss':generator_loss})
@@ -52,7 +52,7 @@ class LoginView(APIView):
 
         token = jwt.encode(payload, 'secret', algorithm='HS256')
 
-        #token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+        # token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
         response =  Response()
 
@@ -99,7 +99,7 @@ class LogoutView(APIView):
 class ImageView(APIView):
     def colorize(self, image):
 
-        generator = tf.keras.models.load_model('generator_model_f.h5',compile=False)
+        generator = tf.keras.models.load_model('anup.h5',compile=False)
         a = []
 
         # Resize the RGB image
@@ -158,12 +158,14 @@ class ImageView(APIView):
             uploaded_image_instance.save()
 
             # Get the URL of the colorized image
+            
             colorized_image_url = uploaded_image_instance.colorized_image.url
+            image_url = request.build_absolute_uri(colorized_image_url)
 
             # Serialize the product instance
             serialized_product = ProductSerializer(uploaded_image_instance).data
 
-            return JsonResponse({'colorized_image_url': colorized_image_url, 'product': serialized_product})
+            return JsonResponse({'colorized_image_url': image_url, 'product': serialized_product})
 
         return JsonResponse({'error': 'No image provided'}, status=400)
     

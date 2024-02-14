@@ -1,14 +1,16 @@
 import { useState } from "react";
 
-function Nav({ user, setUser }) {
+function Nav() {
   const [open, setOpen] = useState(false);
+
+  const user = localStorage.getItem("token");
   const logout = async () => {
     await fetch("http://127.0.0.1:8000/api/logout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    setUser("");
+    localStorage.removeItem("token");
   };
 
   return (
@@ -91,7 +93,7 @@ function Nav({ user, setUser }) {
             </li>
           </ul>
         </div>
-        {user === "" ? (
+        {user === null ? (
           <div
             className={`flex flex-col md:flex-row    
           ${open ? "top-20 gap-3" : "hidden md:block"}
@@ -118,6 +120,7 @@ function Nav({ user, setUser }) {
           >
             <a
               href="/login"
+              onClick={logout}
               className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-4 "
             >
               Logout

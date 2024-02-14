@@ -5,6 +5,8 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -18,4 +20,4 @@ urlpatterns = [
     path('products/', ImageView.as_view()),
     # path('colorize-image/<int:pk>/', ColorizeImageView.as_view(), name='colorize_image'),
     path('colorized-image/', ColorizedImageView.as_view(), name='colorized_image'),
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
