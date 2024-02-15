@@ -122,7 +122,7 @@ const Dandd = () => {
     }
   }
   const handleDownload = () => {
-    const url = { colorizedImageUrl };
+    const url = {colorizedImageUrl} ;
     const link = document.createElement("a");
     link.href = url;
     link.setAttribute("download", "image.jpg");
