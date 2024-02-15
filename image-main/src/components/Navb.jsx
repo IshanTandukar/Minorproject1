@@ -11,11 +11,12 @@ function Nav() {
       credentials: "include",
     });
     localStorage.removeItem("token");
+    window.location = "/";
   };
 
   return (
-    <nav className="bg-gray-200  w-full    border-b border-gray-200 z-30 md:z-0">
-      <div className="max-w-screen-xl flex flex-col md:flex-row flex-wrap items-start justify-between mx-auto p-4 ">
+    <nav className="bg-white  w-full    border-b border-gray-200 z-30 md:z-0">
+      <div className="max-w-screen-xl flex flex-col md:flex-row flex-wrap items-center justify-between mx-auto p-3 ">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
@@ -61,7 +62,7 @@ function Nav() {
             <li>
               <a
                 href="/"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                className="block py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-sm"
                 aria-current="page"
               >
                 Home
@@ -70,7 +71,7 @@ function Nav() {
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                className="block py-2 px-3 text-gray-900  hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-sm "
               >
                 About
               </a>
@@ -78,7 +79,8 @@ function Nav() {
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                className="block py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-sm
+                "
               >
                 Services
               </a>
@@ -86,7 +88,8 @@ function Nav() {
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                className="block py-2 px-3 text-gray-900  hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-sm
+                "
               >
                 Contact
               </a>
@@ -101,15 +104,15 @@ function Nav() {
           >
             <a
               href="/login"
-              className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-4 "
+              className="text-[#454545] bg-[#e9eced] hover:bg-[#DEE1E3] font-medium rounded-full text-sm px-4 py-2 text-center mr-4 "
             >
               Login
             </a>
             <a
               href="/signup"
-              className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center "
+              className="text-[#454545] bg-[#e9eced]  hover:bg-[#DEE1E3] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center "
             >
-              Signup
+              Sign up
             </a>
           </div>
         ) : (
@@ -119,9 +122,8 @@ function Nav() {
           `}
           >
             <a
-              href="/login"
               onClick={logout}
-              className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-4 "
+              className="text-[#454545] bg-[#DEE1E3]hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-4 "
             >
               Logout
             </a>
