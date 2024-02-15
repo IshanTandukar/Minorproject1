@@ -8,16 +8,13 @@ from .serializers import UserSerializer, ProductSerializer
 from django.http import JsonResponse, HttpResponse
 from .models import User, Product
 from rest_framework.parsers import MultiPartParser,FormParser
-# import torch
-# import torchvision.transforms as transforms
-# from torchvision import models
 import tensorflow as tf
 from io import BytesIO
 from PIL import Image
 import numpy as np
 from django.conf import settings
-img_size = 120
-
+# img_size = 128
+img_size = 120 #for anup.h5
 
 # generator = tf.keras.models.load_model('milanmodel.keras', custom_objects={'generator_loss':generator_loss})
 # custom_objects={'generator_loss':generator_loss},compile = False,
@@ -142,17 +139,6 @@ class ImageView(APIView):
             colorized_image.save(colorized_image_io, format='JPEG')
             colorized_image_io.seek(0)
 
-            # ***change by ishan***
-            # # Update the image field with the colorized image
-            # uploaded_image_instance.image.save('colorized_' + image_instance.name, colorized_image_io)
-            # uploaded_image_instance.save()
-
-            # # Get the URL of the colorized image
-            # colorized_image_url = uploaded_image_instance.image.url
-
-            # # Serialize the product instance
-            # serialized_product = ProductSerializer(uploaded_image_instance).data
-
             # Update the image field with the colorized image
             uploaded_image_instance.colorized_image.save('colorized_' + image_instance.name, colorized_image_io)
             uploaded_image_instance.save()
@@ -180,5 +166,19 @@ class ColorizedImageView(APIView):
                 return Response({'colorized_image_url': colorized_image_url})
             else:
                 return Response({'error': 'No colorized image found'}, status=404)
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
+
+
+class AllImageView(APIView):
+    def get(self, request):
+        try:
+            # Retrieve all Product objects with colorized images
+            products = Product.objects.exclude(colorized_image__isnull=True).exclude(colorized_image='')
+
+            # Serialize the products
+            serialized_products = ProductSerializer(products, many=True).data
+
+            return Response({'colorized_images': serialized_products})
         except Exception as e:
             return Response({'error': str(e)}, status=500)
