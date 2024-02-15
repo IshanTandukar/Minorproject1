@@ -4,6 +4,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer, ProductSerializer
 from django.http import JsonResponse, HttpResponse
 from .models import User, Product
@@ -171,12 +173,24 @@ class ColorizedImageView(APIView):
 
 
 class AllImageView(APIView):
+    # def get(self, request):
+    #     try:
+    #         # Retrieve all Product objects with colorized images
+    #         products = Product.objects.exclude(colorized_image__isnull=True).exclude(colorized_image='')
+
+    #         # Serialize the products
+    #         serialized_products = ProductSerializer(products, many=True).data
+
+    #         return Response({'colorized_images': serialized_products})
+    #     except Exception as e:
+    #         return Response({'error': str(e)}, status=500)
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         try:
-            # Retrieve all Product objects with colorized images
-            products = Product.objects.exclude(colorized_image__isnull=True).exclude(colorized_image='')
+            # Retrieve colorized images associated with the currently logged-in user
+            products = Product.objects.filter(user=request.user).exclude(colorized_image__isnull=True).exclude(colorized_image='')
 
-            # Serialize the products
             serialized_products = ProductSerializer(products, many=True).data
 
             return Response({'colorized_images': serialized_products})

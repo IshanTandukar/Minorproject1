@@ -14,6 +14,7 @@ class User(AbstractUser):
 
 
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/',default= None)
     colorized_image = models.ImageField(upload_to='colorized_image/',blank=True, null= True)
     # colorized_image/
