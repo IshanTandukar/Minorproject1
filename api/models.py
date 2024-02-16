@@ -13,8 +13,13 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []    
 
 
+# class Product(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     image = models.ImageField(upload_to='images/',default= None)
+#     colorized_image = models.ImageField(upload_to='colorized_image/',blank=True, null= True)
+#     # colorized_image/
+    
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,null = True)
-    image = models.ImageField(upload_to='images/',default= None)
-    colorized_image = models.ImageField(upload_to='colorized_image/',blank=True, null= True)
-    # colorized_image/
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(upload_to='images/', default=None)
+    colorized_image = models.ImageField(upload_to='colorized_image/', blank=True, null=True)
