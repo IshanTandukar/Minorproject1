@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'colordb',
         'USER': 'root',
-        'PASSWORD': '6650509869a',
+        'PASSWORD': 'anup',
         'HOST':'127.0.0.1',
         'PORT':'3306',
     }

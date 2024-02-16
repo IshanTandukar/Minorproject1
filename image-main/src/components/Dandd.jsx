@@ -85,6 +85,7 @@
 // ***change by ishan***
 import { useState, useRef } from "react";
 import { redirect } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Dandd = () => {
   const [image, setImage] = useState(null);
@@ -100,9 +101,15 @@ const Dandd = () => {
     setImage(event.dataTransfer.files);
   };
 
+  const token = localStorage.getItem("token");
+  const decoded_token = jwtDecode(token);
+  const user_id = decoded_token["id"];
+
   async function uploadImage() {
     const formData = new FormData();
     formData.append("image", image[0]);
+    formData.append("user_id", user_id);
+    console.log(formData);
 
     try {
       const response = await fetch("http://127.0.0.1:8000/api/products/", {
@@ -122,7 +129,7 @@ const Dandd = () => {
     }
   }
   const handleDownload = () => {
-    const url = {colorizedImageUrl} ;
+    const url = { colorizedImageUrl };
     const link = document.createElement("a");
     link.href = url;
     link.setAttribute("download", "image.jpg");

@@ -127,6 +127,11 @@ class ImageView(APIView):
             uploaded_image_instance = Product(image=uploaded_image)
             uploaded_image_instance.save()
 
+            id = request.POST.get('user_id')
+            print("hellow ajkdljfdjfjd")
+            id_instance = Product(user_id = id)
+            id_instance.save()
+
             # Get the uploaded image instance
             image_instance = uploaded_image_instance.image
 
