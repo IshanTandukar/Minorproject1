@@ -101,15 +101,9 @@ const Dandd = () => {
     setImage(event.dataTransfer.files);
   };
 
-  const token = localStorage.getItem("token");
-  const decoded_token = jwtDecode(token);
-  const user_id = decoded_token["id"];
-
   async function uploadImage() {
     const formData = new FormData();
     formData.append("image", image[0]);
-    formData.append("user_id", user_id);
-    console.log(formData);
 
     try {
       const token = localStorage.getItem("token");
@@ -132,13 +126,35 @@ const Dandd = () => {
       console.error("Error uploading image:", error);
     }
   }
-  const handleDownload = () => {
-    const url = { colorizedImageUrl };
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "image.jpg");
-    document.body.appendChild(link);
-    link.click();
+  const handleDownload = (imageUrl) => {
+    // Fetch the image from the provided URL
+    fetch(imageUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create a URL for the blob
+        const url = window.URL.createObjectURL(new Blob([blob]));
+
+        // Create a temporary link element
+        const link = document.createElement("a");
+        link.href = url;
+
+        // Extract the file name from the URL
+        const fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+
+        // Set the download attribute with the file name
+        link.setAttribute("download", fileName);
+
+        // Append the link to the body and trigger a click event
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up: remove the link and revoke the object URL
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error downloading image:", error);
+      });
   };
   const colorize = () => {
     setColorizedImageUrl((prev) => {
@@ -160,7 +176,12 @@ const Dandd = () => {
           onError={() => console.error("Error loading image")}
         />
         <div className="mt-8">
-          <button onClick={handleDownload} className="mr-2">
+          <button
+            onClick={() => {
+              handleDownload(colorizedImageUrl);
+            }}
+            className="mr-2"
+          >
             Download
           </button>
           <button onClick={colorize} className="ml-2">
@@ -190,7 +211,7 @@ const Dandd = () => {
             onClick={uploadImage}
             className="bg-blue-500 px-4 py-2 rounded-xl "
           >
-            Upload
+            Colorize
           </button>
         </div>
       </div>

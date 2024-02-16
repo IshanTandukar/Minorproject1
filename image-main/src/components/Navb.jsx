@@ -17,13 +17,13 @@ function Nav() {
   return (
     <nav className="bg-white  w-full    border-b border-gray-200 z-30 md:z-0">
       <div className="max-w-screen-xl flex flex-col md:flex-row flex-wrap items-center justify-between mx-auto p-3 ">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" className="flex items-center space-x-3 text-gray-600">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="h-8"
             alt="Flowbite Logo"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap">
             Auto-Colorizer
           </span>
         </a>
@@ -122,8 +122,14 @@ function Nav() {
           `}
           >
             <a
+              href="/history"
+              className="mr-10 text-[14px] text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700"
+            >
+              History
+            </a>
+            <a
               onClick={logout}
-              className="text-[#454545] bg-[#DEE1E3]hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-4 "
+              className="text-[#454545] bg-[#e9eced]  hover:bg-[#DEE1E3] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center "
             >
               Logout
             </a>
