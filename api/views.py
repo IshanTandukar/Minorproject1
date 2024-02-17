@@ -18,9 +18,6 @@ from django.conf import settings
 # img_size = 128
 img_size = 120 #for anup.h5
 
-# generator = tf.keras.models.load_model('milanmodel.keras', custom_objects={'generator_loss':generator_loss})
-# custom_objects={'generator_loss':generator_loss},compile = False,
-
 
 # Create your views here.
 class RegisterView(APIView):
@@ -91,77 +88,9 @@ class LogoutView(APIView):
         }
         return response
     
-
-
-
-#yaha dekhi chai ishan le change gareko hai . yesma chai load garna ra color ko lagi euta api banako arko chai colored version retrieve garna arko api banako     
-# class ImageView(APIView):
-#     def colorize(self, image):
-
-#         generator = tf.keras.models.load_model('anup.h5',compile=False)
-#         a = []
-
-#         # Resize the RGB image
-#         rgb = image.resize((img_size, img_size))
-
-#         # Convert to grayscale
-#         gray = rgb.convert('L')
-
-#         # Convert to numpy array, normalize, and reshape grayscale array
-#         gray_array = np.asarray(gray).reshape(( img_size, img_size, 1)) / 255.0
-#         a.append(gray_array)
-#         d= np.asanyarray(a)
-        
-
-#         # Generate colorized output
-#         output = generator(d[0:]).numpy()
-
-#         # Convert output to image format
-#         color_output = Image.fromarray((output[0] * 255).astype('uint8')).resize((1024, 1024))
-
-#         return color_output
-
-#     def post(self, request):
-#         if request.FILES.get('image'):
-#             uploaded_image = request.FILES['image']
-#             uploaded_image_instance = Product(image=uploaded_image)
-#             uploaded_image_instance.save()
-
-#             # Get the uploaded image instance
-#             image_instance = uploaded_image_instance.image
-
-#             # Open the image using PIL
-#             image = Image.open(uploaded_image)
-
-#             # Colorize the image
-#             colorized_image = self.colorize(image)
-
-#             # Save the colorized image
-#             colorized_image_io = BytesIO()
-#             colorized_image.save(colorized_image_io, format='JPEG')
-#             colorized_image_io.seek(0)
-
-#             # Update the image field with the colorized image
-#             uploaded_image_instance.colorized_image.save('colorized_' + image_instance.name, colorized_image_io)
-#             uploaded_image_instance.save()
-
-#             # Get the URL of the colorized image
-#             colorized_image_url = uploaded_image_instance.colorized_image.url
-#             image_url = request.build_absolute_uri(colorized_image_url)
-
-#             # Serialize the product instance
-#             serialized_product = ProductSerializer(uploaded_image_instance).data
-
-#             return JsonResponse({'colorized_image_url': image_url, 'product': serialized_product})
-
-#         return JsonResponse({'error': 'No image provided'}, status=400)
     
-
 class ImageView(APIView):
     permission_classes = [IsAuthenticated]
-
-    # def colorize(self, image):
-    #     # Your existing colorize method remains unchanged
     def colorize(self, image):
 
         generator = tf.keras.models.load_model('anup.h5',compile=False)
@@ -242,17 +171,6 @@ class ColorizedImageView(APIView):
 
 
 class AllImageView(APIView):
-    # def get(self, request):
-    #     try:
-    #         # Retrieve all Product objects with colorized images
-    #         products = Product.objects.exclude(colorized_image__isnull=True).exclude(colorized_image='')
-
-    #         # Serialize the products
-    #         serialized_products = ProductSerializer(products, many=True).data
-
-    #         return Response({'colorized_images': serialized_products})
-    #     except Exception as e:
-    #         return Response({'error': str(e)}, status=500)
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
