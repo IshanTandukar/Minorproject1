@@ -196,6 +196,7 @@ class ImageView(APIView):
             uploaded_image_instance = Product(image=request.FILES['image'], user=user)
             uploaded_image_instance.save()
 
+
             # Get the uploaded image instance
             image_instance = uploaded_image_instance.image
 
@@ -278,4 +279,4 @@ class DeleteImageView(APIView):
         except Product.DoesNotExist:
             return Response({'error': 'Image not found'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'error': 'hello' + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 import Signup from "./pages/Signup";
 import Nav from "./components/Navb";
+import Historylog from "./pages/Historylog";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="history" element={<Historylog />} />
         </Routes>
       </BrowserRouter>
     </div>
