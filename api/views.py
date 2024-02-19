@@ -93,7 +93,7 @@ class ImageView(APIView):
     permission_classes = [IsAuthenticated]
     def colorize(self, image):
 
-        generator = tf.keras.models.load_model('anup.h5',compile=False)
+        generator = tf.keras.models.load_model('anup.h5',compile=False)  #anup.h5
         a = []
 
         # Resize the RGB image

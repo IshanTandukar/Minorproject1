@@ -27,7 +27,7 @@ const Login = () => {
           window.location = "/";
         }
       });
-
+    };
     // console.log(response);
     // const token = await response.json();
     // localStorage.setItem("token", token.jwt);
@@ -36,7 +36,6 @@ const Login = () => {
     //   setRedirects(true);
     //   setUser(token);
     // }
-  };
 
   // if (redirects) {
   //   return <Navigate replace to="/" />;
